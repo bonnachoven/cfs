@@ -2,12 +2,8 @@
 <%@page import="java.util.List"%>
 <%@page import="databean.Fund"%>
 
-<!DOCTYPE html>
-<html>
- 
-<body>
-<jsp:include page="error-list.jsp" />
 <jsp:include page="template-admin.jsp" />
+<jsp:include page="error-list.jsp" />
 
 
 <ul class="breadcrumb">

@@ -37,7 +37,7 @@ public class Employee implements Comparable<Employee> {
 	public boolean equals(Object obj) {
 		if (obj instanceof Employee) {
 			Employee other = (Employee) obj;
-			return (employee_id ==employee_id);
+			return (other.employee_id == employee_id);
 		}
 		return false;
 	}

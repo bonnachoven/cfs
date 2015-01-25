@@ -1,13 +1,12 @@
 package databean;
 
-import java.sql.Date;
 
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("fund_id,price_date")
 public class Fund_Price_History {
 	private int fund_id = -1;
-	private Date price_date = null;
+	private String price_date = null;
 	private long price = 0;
 
 	public int getFund_id() {
@@ -18,11 +17,11 @@ public class Fund_Price_History {
 		this.fund_id = fund_id;
 	}
 
-	public Date getPrice_date() {
+	public String getPrice_date() {
 		return price_date;
 	}
 
-	public void setPrice_date(Date price_date) {
+	public void setPrice_date(String price_date) {
 		this.price_date = price_date;
 	}
 

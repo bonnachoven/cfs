@@ -6,7 +6,7 @@ import java.sql.Date;
 public class ResearchFund {
 	private String name = null;
 	private String symbol = null;
-	private Long price = null;
+	private String price = null;
 	private String price_date = null;
 	
 	public String getName() {
@@ -23,11 +23,11 @@ public class ResearchFund {
 		this.symbol = symbol;
 	}
 	
-	public Long getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
-		this.price = price;
+	public void setPrice(String string) {
+		this.price = string;
 	}
 	
 	public String getPrice_date() {

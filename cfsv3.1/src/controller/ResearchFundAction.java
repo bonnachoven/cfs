@@ -2,6 +2,7 @@
 package controller;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -47,7 +48,7 @@ public class ResearchFundAction extends Action {
 		// HttpSession session = request.getSession();
 
 		Fund fund = (Fund) request.getSession(false).getAttribute("Fund");
-
+		DecimalFormat df = new DecimalFormat("0.00");
 		try {
 
 			Fund_Price_History[] fundpricehistory = fundPriceHistoryDAO
@@ -57,10 +58,12 @@ public class ResearchFundAction extends Action {
 				ResearchFund[] researchfund = new ResearchFund[fundpricehistory.length];
 
 				for (int i = 0; i < researchfund.length; i++) {
+					Long cash = fundpricehistory[i].getPrice();
+					Double price = cash.doubleValue();
 					researchfund[i] = new ResearchFund();
 					researchfund[i].setName(fund.getName());
 					researchfund[i].setSymbol(fund.getSymbol());
-					researchfund[i].setPrice(fundpricehistory[i].getPrice());
+					researchfund[i].setPrice(df.format(price/100));
 					researchfund[i].setPrice_date(fundpricehistory[i]
 							.getPrice_date());
 				}

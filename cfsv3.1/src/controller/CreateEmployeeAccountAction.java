@@ -50,7 +50,7 @@ public class CreateEmployeeAccountAction extends Action {
 
 		try {
 			CreateEmployeeAccountForm form = formBeanFactory.create(request);
-			session.setAttribute("form", form);
+			request.setAttribute("form", form);
 			session.setAttribute("employeeList", employeeDAO.getEmployees());
 
 			// If no params were passed, return with no errors so that the form
@@ -81,6 +81,7 @@ public class CreateEmployeeAccountAction extends Action {
 			} else {
 				// employeeDAO.createAutoIncrement(employee);
 				employeeDAO.create(employee);
+				session.removeAttribute("form");
 				request.setAttribute("msg","Employee was created successfully.");
 				return "success-admin.jsp";
 			}

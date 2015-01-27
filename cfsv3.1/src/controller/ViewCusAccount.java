@@ -62,7 +62,7 @@ public class ViewCusAccount extends Action {
 		if (customer == null) {
 			try {
 				ViewCusAccForm form = formBeanFactory.create(request);
-				session.setAttribute("form", form);
+				request.setAttribute("form", form);
 				
 				if (!form.isPresent()) {
 					return "view-cus-account.jsp";

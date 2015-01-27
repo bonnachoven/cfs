@@ -98,7 +98,7 @@ public class BuyFundAction extends Action {
 
 			BuyFundForm form = formBeanFactory.create(request);
 
-			session.setAttribute("form", form);
+			request.setAttribute("form", form);
 			if (form.isPresent()) {
 				
 				errors.addAll(form.getValidationErrors());
@@ -123,6 +123,7 @@ public class BuyFundAction extends Action {
 					transaction.setAmount(amount);
 					transactionDAO.create(transaction);
 					request.setAttribute("balance", validBalance);
+					request.removeAttribute("form");
 				}
 			}
 

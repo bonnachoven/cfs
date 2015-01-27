@@ -50,7 +50,7 @@ public class CreateCustomerAccountAction extends Action {
 
 		try {
 			CreateCustomerAccountForm form = formBeanFactory.create(request);
-			session.setAttribute("form", form);
+			request.setAttribute("form", form);
 			session.setAttribute("customerList", customerDAO.getCustomers());
 
 			// If no params were passed, return with no errors so that the form
@@ -86,6 +86,7 @@ public class CreateCustomerAccountAction extends Action {
 				return "createCustomer.jsp";
 			} else {
 				customerDAO.createAutoIncrement(customer);
+				session.removeAttribute("form");
 				request.setAttribute("msg","Customer was created successfully.");
 			}
 

@@ -279,9 +279,9 @@ public class Controller extends HttpServlet {
 			Fund_Price_History fph2 = new Fund_Price_History();
 			Fund fund2 = fundDAO.getFunds("IBM");
 			fph2.setFund_id(fund2.getFund_id());
-			fph2.setPrice(10000);
+			fph2.setPrice(62300);
 			Calendar c2 = Calendar.getInstance();
-			c2.set(2015, 1, 20);
+			c2.set(2015, 1, 27);
 			fph2.isetPrice_date_formatted(c2.getTime());
 			fundPriceHistoryDAO.create(fph2);
 			
@@ -290,9 +290,9 @@ public class Controller extends HttpServlet {
 			Fund_Price_History fph3 = new Fund_Price_History();
 			Fund fund3 = fundDAO.getFunds("Google");
 			fph3.setFund_id(fund3.getFund_id());
-			fph3.setPrice(10000);
+			fph3.setPrice(67000);
 			Calendar c3 = Calendar.getInstance();
-			c3.set(2015, 1, 22);
+			c3.set(2015, 1, 26);
 			fph3.isetPrice_date_formatted(c3.getTime());
 			fundPriceHistoryDAO.create(fph3);
 			

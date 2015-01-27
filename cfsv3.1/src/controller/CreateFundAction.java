@@ -50,7 +50,7 @@ public class CreateFundAction extends Action {
 
 		try {
 			CreateFundForm form = formBeanFactory.create(request);
-			session.setAttribute("form", form);
+			request.setAttribute("form", form);
 			session.setAttribute("fund", fundDAO.getFunds());
 
 			// If no params were passed, return with no errors so that the form

@@ -42,8 +42,8 @@ public class SellFundAction extends Action {
 		transactionDAO = m.getTransactionDAO();
 	}
 
-	public String perform(HttpServletRequest rq) {
-		HttpSession session = rq.getSession();
+	public String perform(HttpServletRequest request) {
+		HttpSession session = request.getSession();
 
 		List<String> errors = new ArrayList<String>();
 		session.setAttribute("errors", errors);
@@ -53,7 +53,7 @@ public class SellFundAction extends Action {
 			return "login.jsp";
 
 		try {
-			SellFundForm form = formBeanFactory.create(rq);
+			SellFundForm form = formBeanFactory.create(request);
 
 			DecimalFormat df3 = new DecimalFormat("#,##0.000");
 			FundViewer[] fundList = null;
@@ -119,7 +119,7 @@ public class SellFundAction extends Action {
 			transbean.setShares((long) (sharesSell * 1000.0));
 			transactionDAO.create(transbean);
 			session.removeAttribute("form");
-			rq.setAttribute(
+			request.setAttribute(
 					"msg",
 					"You had successfully sold your fund, transaction will be finished on the next transition day");
 

@@ -39,7 +39,7 @@ public class ResetPwdAction extends Action {
 
 		try {
 			ResetPwdForm form = formBeanFactory.create(request);
-			session.setAttribute("form", form);
+			request.setAttribute("form", form);
 
 			if (!form.isPresent()) {
 				return "reset-pwd.jsp";
@@ -62,6 +62,7 @@ public class ResetPwdAction extends Action {
 			customer.setPassword("123");
 			customerDAO.update(customer);
 			request.setAttribute("msg", "Password has been changed to 123");
+			
 			return "reset-pwd.jsp";
 		}
 		catch (RollbackException e) {

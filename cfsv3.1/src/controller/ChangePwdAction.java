@@ -48,7 +48,7 @@ public class ChangePwdAction extends Action {
 						"customer");
 
 				ChangePwdForm form = formBeanFactory.create(request);
-				session.setAttribute("form", form);
+				request.setAttribute("form", form);
 
 				if (!form.isPresent()) {
 					System.out.println("form doesn't exist");
@@ -82,7 +82,7 @@ public class ChangePwdAction extends Action {
 
 				request.setAttribute("msg",
 						"Password was changed successfully.");
-
+				session.removeAttribute("form");
 				return "changePswCus.jsp";
 
 			} else if (((Employee) request.getSession()
@@ -91,7 +91,7 @@ public class ChangePwdAction extends Action {
 						"employee");
 				// now it is an employee
 				ChangePwdForm form = formBeanFactory.create(request);
-				session.setAttribute("form", form);
+				request.setAttribute("form", form);
 
 				if (!form.isPresent()) {
 					return "changePswEmp.jsp";
@@ -117,6 +117,7 @@ public class ChangePwdAction extends Action {
 
 				request.setAttribute("msg",
 						"Password was changed successfully.");
+				session.removeAttribute("form");
 				return "changePswEmp.jsp";
 			} else {
 				if (request.getSession().getAttribute("employee") != null) {

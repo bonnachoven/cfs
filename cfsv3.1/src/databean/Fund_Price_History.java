@@ -33,6 +33,7 @@ public class Fund_Price_History {
 		c.set(Calendar.MONTH, Integer.parseInt(price_date.substring(5,7)) - 1);
 		c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(price_date.substring(8,10)));
 		return c.getTime();
+		
 	}
 
 	public void setPrice_date(String price_date) {

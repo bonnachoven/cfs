@@ -63,14 +63,14 @@ public class Controller extends HttpServlet {
 		
 		
 		
-		
+		/*
 		initializeTable(model.getCustomerDAO(), 
 				model.getEmployeeDAO(),
 				model.getTransactionDAO(), 
 				model.getFundDAO(),
 				model.getPositionDAO(),
 				model.getFund_Price_HistoryDAO()
-				);
+				);*/
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

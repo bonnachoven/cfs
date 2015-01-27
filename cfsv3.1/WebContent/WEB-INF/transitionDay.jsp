@@ -17,7 +17,7 @@
 				
 		<ul class="breadcrumb">
 					
-		<li class="active"><a href="adminViewAccount.do">View Account</a> 
+		<li class="active"><a href="viewCusAccount.do">View Account</a> 
 		<span class="divider">/ </span></li>
 					
 		<li><a href="transitionDay.do">TransitionDay</a> 
@@ -27,18 +27,14 @@
 				
 </div> 
  
- 
+ <div style="width:400px;">
 <c:forEach var="error" items="${errors}">
 	<h3 style="color: red">${error}</h3>
 </c:forEach> 
-<div class="col-md-10" role="main" >
-
-Last ended transition day was : ${date}
-
 </div>
-
+<div style="width:400px;">Last ended transition day was : ${date}</div>
+<div style="width:400px;">
 <form action="" method="post"> 
-
 <table class="table table-striped">
     <thead>
       <tr>
@@ -55,7 +51,7 @@ Last ended transition day was : ${date}
       	<th>Fund_id</th>
         <th>Fund_Name</th>
         <th>Fund_Symbol</th>
-        <th>Price</th>
+        <th>Price($)</th>
       </tr>
     </thead>
     <tbody>
@@ -65,7 +61,7 @@ Last ended transition day was : ${date}
       	<td name="fund_id">${funds.fund_id}</td>
       	<td>${funds.name}</td>
         <td>${funds.symbol}</td>
-        <td><input type="text" name="price${count}"></td>
+        <td><input type="text" required="required" placeholder="eg. 12.00$" name="price${count}"></td>
       </tr>
      	<c:set var="count" value="${count + 1}" scope="page"/>
     </c:forEach>
@@ -76,6 +72,7 @@ Last ended transition day was : ${date}
 <input type="submit" name="action" value="Transit Day">
 </form>
 
+</div>
 <jsp:include page="template-bottom.jsp" />
 </body>
 </html>

@@ -17,6 +17,7 @@ import model.Fund_Price_HistoryDAO;
 import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
+import databean.Employee;
 import databean.Fund;
 import databean.Fund_Price_History;
 import databean.Position;
@@ -68,9 +69,9 @@ public class TransitionDay extends Action {
         	TransitionDayForm form = new TransitionDayForm();
         	
         	//check if the admin is logged in to the system ....else prevent from accessing the transition day
-        	/*Employee employee = (Employee) request.getSession(false).getAttribute("employee");
+        	Employee employee = (Employee) request.getSession(false).getAttribute("employee");
         	if(employee==null)
-        		return "login.jsp";*/
+        		return "login.jsp";
         
       
         	 Fund[] funds=null;
@@ -144,7 +145,7 @@ public class TransitionDay extends Action {
 		    	  	
 		    	  	//request check on customer account
 		    	  	case 2:
-		    	  			//cusDAO.updateCash(b.getCustomer_id(),b.getAmount(),false);
+		    	  			cusDAO.updateCash(b.getCustomer_id(),b.getAmount(),false);
 		    	  			b.setExecute_date(s);
 		    	  			transDAO.update(b);
 		    	  			break;
@@ -154,7 +155,7 @@ public class TransitionDay extends Action {
 		    	  		//update the shares on the position table
 		    	  			
 		    	  				
-		    	  		/*	Position p=new Position();
+		    	  			Position p=new Position();
 		    	  			p.setCustomer_id(b.getCustomer_id());
 		    	  			p.setFund_id(b.getFund_id());
 		    	  			long shares =posDAO.getShares(b.getFund_id(), b.getCustomer_id());
@@ -165,11 +166,11 @@ public class TransitionDay extends Action {
 		    	  				posDAO.update(p);
 		    	  			}
 		    	  			
-		    	  			*/
+		    	  			
 		    	  			
 		    	  			//update the cash price on the customer table
 		    	  			long price = (fphisDAO.getLatestFundPrice(b.getFund_id()).getPrice());
-		    	  			long cash = b.getShares()*price;
+		    	  			long cash = b.getShares()/1000*price;
 		    	  			cusDAO.updateCash(b.getCustomer_id(), cash, true);
 		    	  			b.setExecute_date(s);
 		    	  			transDAO.update(b);
@@ -184,8 +185,8 @@ public class TransitionDay extends Action {
 		    				position.setFund_id(b.getFund_id());
 		    				long currentshares =posDAO.getShares(b.getFund_id(), b.getCustomer_id());
 		    				long latestprice = (fphisDAO.getLatestFundPrice(b.getFund_id()).getPrice());
-		    	  			double latestshares = (double)latestprice/(double)b.getAmount();
-		    	  			/*latestshares*=1000;*/
+		    	  			double latestshares = (double)b.getAmount()/(double)latestprice;
+		    	  			latestshares*=1000;
 		    	  			System.out.println("price:"+latestprice+"amt:"+b.getAmount());
 		    	  			
 		    	  			System.out.println("total shares"+(long)latestshares);
@@ -203,14 +204,14 @@ public class TransitionDay extends Action {
 		    					position.setShares((long)latestshares);
 		    					posDAO.update(position);
 		    				}
-		    				
+		    				//update the cash price on the customer table
+		    				cusDAO.updateCash(b.getCustomer_id(), b.getAmount(), false);
 		    				b.setExecute_date(s);
 		    	  			transDAO.update(b);
 		    				break;
 		    				
 		    				/*
-		    				//update the cash price on the customer table
-		    	  			cusDAO.updateCash(b.getCustomer_id(), b.getAmount(), false);
+		    				
 		    	  			*/
 		    		 
 		    		 default:

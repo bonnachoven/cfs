@@ -27,10 +27,8 @@
 		</ul>
 				
 </div> 
-
-
+<div style="width: 400px;">  <h2>All transactions for ${username}</h2></div>
 <div class="container">
-  <h2>All transactions for ${username}</h2>
    <table class="table table-striped">
     <thead>
       <tr>

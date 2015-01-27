@@ -14,10 +14,12 @@
 		<span class="divider">/ </span>			
 		</li>		
 		</ul>
+		<c:forEach var="error" items="${errors}">
+	<h3 style="color: red">${error}</h3>
+    </c:forEach>
 	<div >
 		<h2>Create Customer</h2>
 		<h4 class="page-body"  style="color:green">${msg}</h4>
-		<jsp:include page="error-list.jsp" />
 		
 	</div>
 

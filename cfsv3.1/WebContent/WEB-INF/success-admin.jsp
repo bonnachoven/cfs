@@ -5,8 +5,5 @@
 */ %> 
 <jsp:include page="template-admin.jsp" />
 
-<p style="font-size:medium">
-    ${message}
-</p>
-
+		<p style="font-size:large; color:green">${msg}<br></p> 
 

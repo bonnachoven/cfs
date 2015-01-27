@@ -63,7 +63,7 @@ public class CreateEmployeeAccountAction extends Action {
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "error.jsp";
+				return "createEmployee.jsp";
 			}
 
 			// Create the Employee bean
@@ -82,12 +82,12 @@ public class CreateEmployeeAccountAction extends Action {
 				// employeeDAO.createAutoIncrement(employee);
 				employeeDAO.create(employee);
 				request.setAttribute("msg","Employee was created successfully.");
+				return "success-admin.jsp";
 			}
 			
 
-//			session.setAttribute("Employee", employee);
 
-			return "createEmployee.do";
+			
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "createEmployee.jsp";

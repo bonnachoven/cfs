@@ -5,6 +5,8 @@
 	
 	<jsp:include page="template-admin.jsp" />
 	
+	
+
 	<ul class="breadcrumb">
 					
 		<li class="active"><a href="#">Account</a> 
@@ -14,12 +16,15 @@
 		<span class="divider">/ </span>			
 		</li>		
 		</ul>
+	<c:forEach var="error" items="${errors}">
+	<h3 style="color: red">${error}</h3>
+    </c:forEach>
+	
 	<div >
 		<h2>Create Employee</h2>
 		<h4 class="page-body"  style="color:green">${msg}</h4>
-		<jsp:include page="error-list.jsp" />
 	</div>
-	
+
 	<form class="bs-example bs-example-form" role="form" method="post"
 		action="createEmployee.do">
 		<div class="panel panel-default">

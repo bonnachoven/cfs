@@ -8,7 +8,7 @@ huamingl
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<jsp:include page="template-cus.jsp" />
+<jsp:include page="template-admin.jsp" />
 
 <h2>Error</h2>
 
@@ -18,12 +18,10 @@ huamingl
 
 <p>
 	<c:choose>
-		<c:when test="${ (empty user) }">
+		<c:when test="${ (empty employee) }">
 				<a href="login.do">login</a>
 			</c:when>
-		<c:otherwise>
-				<a href="favorite.do">Back to manage your favorites</a>
-			</c:otherwise>
+	
 	</c:choose>
 </p>
 

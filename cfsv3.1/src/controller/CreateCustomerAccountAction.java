@@ -63,7 +63,7 @@ public class CreateCustomerAccountAction extends Action {
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "error.jsp";
+				return "createCustomer.jsp";
 			}
 
 			// Create the customer bean
@@ -90,7 +90,7 @@ public class CreateCustomerAccountAction extends Action {
 			}
 
 
-			return "createCustomer.do";
+			return "success-admin.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "createCustomer.jsp";

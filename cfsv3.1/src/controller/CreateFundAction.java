@@ -63,7 +63,8 @@ public class CreateFundAction extends Action {
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "error.jsp";
+				return "createFund.jsp";
+				
 			}
 
 			// Create the fund bean
@@ -83,7 +84,7 @@ public class CreateFundAction extends Action {
 			
 			session.setAttribute("fund", fund);
 			request.setAttribute("msg","Fund was created successfully.");
-			return "createFund.do";
+			return "success-admin.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "createFund.jsp";

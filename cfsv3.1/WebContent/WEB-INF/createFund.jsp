@@ -11,7 +11,9 @@
 		class="divider"></span></li>
 	<li><a href="createFund.do">Create Fund</a> <span class="divider">/</span></li>
 </ul>
-
+<c:forEach var="error" items="${errors}">
+	<h3 style="color: red">${error}</h3>
+    </c:forEach>
 <div>
 	<h2>Create Funds</h2>
 	<h4 class="page-body"  style="color:green">${msg}</h4>

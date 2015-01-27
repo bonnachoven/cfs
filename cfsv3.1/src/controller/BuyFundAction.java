@@ -59,8 +59,15 @@ public class BuyFundAction extends Action {
 
 			Customer customer = customerDAO.getCustomers(((Customer) request
 					.getSession().getAttribute("customer")).getUsername());
-			
 
+			
+			Double validBalance = transactionDAO.getValidBalance(
+					customer.getCustomer_id(),
+					(customer.igetCashAsDouble()));
+
+			request.setAttribute("balance", validBalance);
+			
+			
 			// get fund name;
 			Fund[] fundList = fundDAO.getFunds();
 
@@ -68,7 +75,7 @@ public class BuyFundAction extends Action {
 			List<FundItem> fundTable = new ArrayList<FundItem>();
 			// add fund table rows
 			if ((fundList != null) && (fundList.length > 0)) {
-				System.out.println("now start to buy fund");
+
 				for (int i = 0; i < fundList.length; i++) {
 					FundItem row = new FundItem();
 					row.setName(fundList[i].getName());
@@ -90,20 +97,35 @@ public class BuyFundAction extends Action {
 			session.setAttribute("fundTable", fundTable);
 
 			BuyFundForm form = formBeanFactory.create(request);
+
 			session.setAttribute("form", form);
 			if (form.isPresent()) {
+				
+				errors.addAll(form.getValidationErrors());
+		        if (errors.size() != 0) {
+		            return "buyFund.jsp";
+		        }
+		        
 				TransactionBean transaction = new TransactionBean();
 				transaction.setCustomer_id(customer.getCustomer_id());
 				transaction.setFund_id(form.getFund_id());
-				System.out.println(form.getFund_id());
 				transaction.setExecute_date(null);
 				transaction.setShares(0);
 				transaction.setTransaction_type(4);
-				Double amount = form.getAmountAsDouble() * 100.0;
-				transaction.setAmount(amount.longValue());
-				transactionDAO.create(transaction);
+				
+				Double amount = form.getAmountAsDouble();
+				System.out.println("Amount in the form is " + amount);
+				if (amount > validBalance) {
+					errors.add("You don't have enough balance to buy the fund");
+				}
+				else {
+					validBalance -= amount;
+					transaction.setAmount(amount);
+					transactionDAO.create(transaction);
+					request.setAttribute("balance", validBalance);
+				}
 			}
-			
+
 			return "buyFund.jsp";
 
 		} catch (RollbackException e) {

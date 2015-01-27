@@ -3,6 +3,7 @@
     <wb-module deploy-name="cfsv3.1">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/"/>
         <property name="context-root" value="cfsv3.1"/>
         <property name="java-output-path" value="/cfsv3.1/build/classes"/>
     </wb-module>

@@ -4,11 +4,12 @@
 
 <%@ page import="databean.FundItem"%>
 
-<h2>Funds Information:</h2>
+
+<h2>Current valid balance is: ${balance}</h2>
 <h4 class="page-body"  style="color:green">${msg}</h4>
  <jsp:include page="error-list.jsp" />
+ 
 <form method="post">
-
  <table class="table table-bordered">
     <thead>
       <tr>

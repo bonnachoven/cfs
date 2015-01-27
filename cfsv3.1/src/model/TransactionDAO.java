@@ -75,13 +75,11 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		return shares;
 	}
 	
-	public double getValidBalance (String customer_id, double amount) throws RollbackException {
+	public double getValidBalance (int customer_id, double amount) throws RollbackException {
 		TransactionBean[] tbs = null;
 		try {
 			Transaction.begin();
-			
 			tbs =  match(MatchArg.equals("execute_date", null), MatchArg.equals("customer_id", customer_id));
-			
 			if (tbs != null) {
 				for (TransactionBean t : tbs) {
 					switch(t.getTransaction_type()) {

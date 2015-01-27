@@ -29,6 +29,9 @@ public class Customer {
 	public String getPassword()     { return password;  }
 	public String getUsername() 	{ return username;	}
 	public long   getCash() 		{ return cash;		}
+	public Double igetCashAsDouble() {
+		return Double.parseDouble(String.valueOf(cash));
+	}
 	public String getAddr_line1() 	{ return addr_line1; }
 	public String getAddr_line2() 	{ return addr_line2;}
 	public String getZip() 			{ return zip;		}

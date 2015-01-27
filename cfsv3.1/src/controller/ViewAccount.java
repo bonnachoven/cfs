@@ -1,9 +1,9 @@
-
 package controller;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +16,12 @@ import model.Model;
 import model.PositionDAO;
 import model.TransactionDAO;
 
-import org.apache.taglibs.standard.extra.spath.ParseException;
 import org.genericdao.RollbackException;
 
 import databean.Customer;
-import databean.Position;
 import databean.Fund;
 import databean.Fund_Price_History;
+import databean.Position;
 import databean.TransactionBean;
 import databean.ViewAccountRecord;
 
@@ -67,20 +66,28 @@ public class ViewAccount extends Action {
 			if (transactionlist.length == 0) {
 				session.setAttribute("lastTransactionDay",
 						"There is no record of any transaction");
-			} //below please change for me
-//				else {
-//				Date lastTransactionDay = transactionlist[0].getExecute_date();
-//				for (TransactionBean transaction : transactionlist) {
-//					if (transaction.getExecute_date().after(lastTransactionDay)) {
-//						lastTransactionDay = transaction.getExecute_date();
-//					}
-//				}
-//				session.setAttribute("lastTransactionDay",
-//						lastTransactionDay.toString());
-//			}
+			} else {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date lastTransactionDay = sdf.parse(transactionlist[0]
+						.getExecute_date());
+				for (TransactionBean transaction : transactionlist) {
+					if (sdf.parse(transaction.getExecute_date()).after(
+							lastTransactionDay)) {
+						lastTransactionDay = sdf.parse(transaction
+								.getExecute_date());
+					}
+				}
+				session.setAttribute("lastTransactionDay",
+						sdf.format(lastTransactionDay));
+			}
 
 		} catch (RollbackException e) {
 			e.printStackTrace();
+			return "error.jsp";
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error.jsp";
 		}
 
 		// get position and fund values
@@ -113,44 +120,38 @@ public class ViewAccount extends Action {
 				ViewAccountRecord record = new ViewAccountRecord();
 				// Format price
 				String sLatestPrice = String.valueOf(latestprice);
-				record.setCurrentPrice(sLatestPrice.substring(0,sLatestPrice.length() - 2)
+				record.setCurrentPrice(sLatestPrice.substring(0,
+						sLatestPrice.length() - 2)
 						+ "."
 						+ sLatestPrice.substring(sLatestPrice.length() - 2));
-				
-				
-				
-				
+
 				// Format shares
 				String sShares = String.valueOf(shares);
 				record.setShares(sShares.substring(0, sShares.length() - 3)
-						+ "." 
-						+ sShares.substring(sShares.length() - 3));
-				
-				
+						+ "." + sShares.substring(sShares.length() - 3));
+
 				// count value
-				System.out.println("Double.value of record.getCurrentPrice() = " + Double.valueOf(record.getCurrentPrice()));
+				System.out
+						.println("Double.value of record.getCurrentPrice() = "
+								+ Double.valueOf(record.getCurrentPrice()));
 				Double dPrice = Double.valueOf(record.getCurrentPrice().trim());
 				Double dShare = Double.valueOf(record.getShares().trim());
 				value += dPrice * dShare;
 
-				
-				
 				// set fund name
 				record.setFundName(fund.getName());
 				// set ticker
 				record.setFundTicker(fund.getSymbol());
 				records.add(record);
-				
+
 			}
 			session.setAttribute("records", records);
 			session.setAttribute("value", value);
 			System.out.println("total value = " + value);
-			
- 			
 
 		} catch (RollbackException e) {
 			e.printStackTrace();
-		} 
+		}
 
 		return "view-account.jsp";
 	}

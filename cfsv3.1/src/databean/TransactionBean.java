@@ -42,7 +42,7 @@ public class TransactionBean implements Comparable<TransactionBean> {
 	public String getExecute_date() {
 		return execute_date;
 	}
-
+	
 	public void setTransaction_id(int i) {
 		transaction_id = i;
 	}

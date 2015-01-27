@@ -35,7 +35,8 @@
 	</div>
 
 	<c:choose>
-		<c:when test="${ (empty customer) }">
+		<c:when test="${ (empty viewcustomer) }">
+			<p>there is no customer</p>
 		</c:when>
 		<c:otherwise>
 			<div>
@@ -44,15 +45,15 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Account Name</h3>
 					</div>
-					<h3 class="panel-body">${customer.firstname},${customer.lastname}</h3>
+					<h3 class="panel-body">${viewcustomer.firstname},${viewcustomer.lastname}</h3>
 
 					<div class="panel-heading">
 						<h3 class="panel-title">Address</h3>
 					</div>
 					<div class="panel-body">
 						<address>
-							<strong>${customer.addr_line1}</strong><br />${customer.addr_line2}
-							<br /> ${customer.city}, ${customer.state} ${customer.zip} <br />
+							<strong>${viewcustomer.addr_line1}</strong><br />${viewcustomer.addr_line2}
+							<br /> ${viewcustomer.city}, ${viewcustomer.state} ${viewcustomer.zip} <br />
 						</address>
 					</div>
 
@@ -64,7 +65,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Cash Balance</h3>
 					</div>
-					<h3 class="panel-body">${customer.cash}</h3>
+					<h3 class="panel-body">${viewcustomer.cash}</h3>
 
 					<div class="panel-heading">
 						<h3 class="panel-title">Shares of Funds</h3>

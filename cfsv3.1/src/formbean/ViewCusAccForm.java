@@ -42,7 +42,7 @@ public class ViewCusAccForm extends FormBean {
 		if (errors.size() > 0)
 			return errors;
 
-		if (username.matches(".*[<>\"].*"))
+		if (username.matches(".*[<>?*\"].*"))
 			errors.add("User Name may not contain angle brackets or quotes");
 
 		return errors;

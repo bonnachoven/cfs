@@ -26,6 +26,9 @@ public class SellFundForm extends FormBean{
         	if (d <= 0 || d > Integer.MAX_VALUE) {
         		throw new Exception();
         	}
+        	if (d > 1000000000) {
+				errors.add("Please enter shares that is lesser than 1000000000");
+			}
         } catch (Exception e) {
         	 errors.add("Please type in postitive numbers.");
         }

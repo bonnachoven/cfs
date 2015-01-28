@@ -103,6 +103,12 @@ public class BuyFundAction extends Action {
 			request.setAttribute("form", form);
 			if (form.isPresent()) {
 				
+				Double amount = form.getAmountAsDouble();
+				System.out.println("Amount in the form is " + amount);
+				if (amount > validBalance) {
+					errors.add("You don't have enough balance to buy the fund");
+				}
+				
 				errors.addAll(form.getValidationErrors());
 		        if (errors.size() != 0) {
 		            return "buyFund.jsp";

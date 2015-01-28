@@ -37,8 +37,8 @@
         <th>Operation-Type</th>
         <th>Fund</th>
         <th>Fund Symbol</th>
-        <th>Share price</th>
-        <th>Amount</th>
+        <th style="text-align:right">Shares</th>
+        <th style="text-align:right">Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -46,7 +46,7 @@
       <tr>
       	<td>${his.transaction_id}</td>
 		<c:choose>
-       		<c:when test="${his.execute_date eq 'null' }" >
+       		<c:when test="${empty his.execute_date}" >
       			<td>PENDING</td>
      		</c:when>
       		<c:otherwise>	
@@ -69,8 +69,8 @@
       	</c:choose> 
         <td>${his.name}</td>
         <td>${his.symbol}</td>
-        <td> <fmt:formatNumber type="number" maxFractionDigits="2" value="${his.shares / 1000}" /></td>
-        <td> <fmt:formatNumber type="number" maxFractionDigits="3" value="${his.amount / 1000}" /> </td>  
+        <td style="text-align:right"> <fmt:formatNumber type="number" maxFractionDigits="3" value="${his.shares / 1000}" /></td>
+        <td style="text-align:right"> <fmt:formatNumber type="number" maxFractionDigits="2" value="${his.amount / 100}" /> </td>  
       </tr>
     </c:forEach>
     </tbody>

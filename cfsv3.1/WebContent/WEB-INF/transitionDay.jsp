@@ -50,7 +50,7 @@
       	<th>Fund_id</th>
         <th>Fund_Name</th>
         <th>Fund_Symbol</th>
-        <th>Price($)</th>
+        <th>Price</th>
       </tr>
     </thead>
     <tbody>

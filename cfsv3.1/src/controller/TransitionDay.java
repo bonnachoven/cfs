@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.genericdao.RollbackException;
+
 import model.CustomerDAO;
 import model.FundDAO;
 import model.Fund_Price_HistoryDAO;
@@ -207,17 +209,18 @@ public class TransitionDay extends Action {
 		    				b.setExecute_date(s);
 		    	  			transDAO.update(b);
 		    				break;
-		    				
-		    				/*
-		    				
-		    	  			*/
-		    		 
 		    		 default:
 		    			 System.out.println("default");
-		    	  
+		    			
 		    	  }
 		      }
-  
+		      //check if some other funds were entered by concurrent user after transition day happened
+		      Fund[] currentfunds = fundDAO.getFunds();
+		      if(currentfunds.length!=funds.length)
+		      {
+		    	  request.setAttribute("additional", currentfunds.length-funds.length);
+		      }
+				
         }
         catch (Exception e) {
      			// TODO Auto-generated catch block
@@ -225,6 +228,8 @@ public class TransitionDay extends Action {
          	e.printStackTrace();
      	}    	
         
+     	
+         
         return "transitionSuccess.jsp";
     } 
 }

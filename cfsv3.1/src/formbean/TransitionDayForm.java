@@ -27,15 +27,18 @@ public class TransitionDayForm extends FormBean{
 	
 	public List<String> getValidationErrors (String lastdate) {
 		List<String> errors = new ArrayList<String>();
-
+		System.out.println(lastdate);
 		 if (date == null || date.length() == 0)
 		 {
-			 
 			 errors.add("Please enter the transition day!");
-			 
 		 }
-		 else
-		 {
+		 else {
+			 if(date.length()>10)
+			 {
+				 errors.add("enter a valid date");
+			 }
+			 else 
+			 {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					Date date = formatter.parse(getdate());
@@ -60,7 +63,7 @@ public class TransitionDayForm extends FormBean{
 					e.printStackTrace();
 				}
 		 }
-	        
+		 }
 		
 		try {
         	if (price <= 0) {

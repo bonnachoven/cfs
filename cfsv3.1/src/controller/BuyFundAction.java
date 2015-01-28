@@ -50,6 +50,7 @@ public class BuyFundAction extends Action {
 
 		DecimalFormat latestPrice = new DecimalFormat("#,##0.00");
 		DecimalFormat shares = new DecimalFormat("#,##0.000");
+		DecimalFormat amount = new DecimalFormat("#,##0.00");
 
 		try {
 			if (request.getSession().getAttribute("customer") == null) {
@@ -63,9 +64,10 @@ public class BuyFundAction extends Action {
 			
 			Double validBalance = transactionDAO.getValidBalance(
 					customer.getCustomer_id(),
-					(customer.igetCashAsDouble()));
+					(customer.igetCashAsDouble()/100.0));
 
-			request.setAttribute("balance", validBalance);
+			String vaildBalanceString = amount.format(vaildBalance);
+			request.setAttribute("balance", validBalanceString);
 			
 			
 			// get fund name;

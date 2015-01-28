@@ -33,6 +33,7 @@ public class DepositCheckAction extends Action {
 	private TransactionDAO transactionDAO;
 	private EmployeeDAO employeeDAO;
 	int id;
+	Customer selectedcustomer;
 
 	public DepositCheckAction(Model model) {
 		customerDAO = model.getCustomerDAO();
@@ -77,21 +78,22 @@ public class DepositCheckAction extends Action {
 			 * df3 = new DecimalFormat("#,##0.000"); Customer customer =
 			 * (Customer) request.getSession(false).getAttribute("user");
 			 */
-			Customer selectedcustomer;
+			
 			// System.out.println("input" + form.getAmount());
 			if (!form.isPresent()) {
 				System.out.println("form not present!");
 				String id_string = request.getParameter("customer_id");
-				System.out.println(id);
+				//System.out.println(id);
 				try {
 					id = Integer.parseInt(id_string);
 				} catch (NumberFormatException e) {
-					errors.add("ID is not ineteger. select customer again.");
+					errors.add("ID is not ineteger. Select customer again.");
+					request.setAttribute("customerList", customerDAO.match());
 					request.setAttribute("errors", errors);
 					return "customerSearch.jsp";
 				}
 
-				System.out.println("ID as integer: " + id);
+				//System.out.println("ID as integer: " + id);
 
 				selectedcustomer = customerDAO.read(id);
 				if (selectedcustomer == null) {
@@ -107,7 +109,8 @@ public class DepositCheckAction extends Action {
 			}
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() > 0) {
-				System.out.println("there is an error!!!!!");
+				request.setAttribute("selectedcustomer", selectedcustomer);
+				//System.out.println("there is an error!!!!!");
 				return "depositCheck.jsp";
 			}
 
@@ -129,7 +132,8 @@ public class DepositCheckAction extends Action {
 			try {
 				id = Integer.parseInt(id_string);
 			} catch (NumberFormatException e) {
-				errors.add("ID is not an integer. please select customer again.");
+				errors.add("ID is not an integer. Please select customer again.");
+				request.setAttribute("customerList", customerDAO.match());
 				request.setAttribute("errors", errors);
 				return "customerSearch.jsp";
 
@@ -140,7 +144,8 @@ public class DepositCheckAction extends Action {
 			long amount;
 
 			try {
-				amount = (long) Double.parseDouble(form.getAmount()) * 100;
+				double newamt = Double.parseDouble(form.getAmount()) * 100;
+				amount = (long) newamt;
 			} catch (NumberFormatException e) {
 				errors.add("Amount should be numerical.");
 				request.setAttribute("errors", errors);
@@ -149,12 +154,12 @@ public class DepositCheckAction extends Action {
 
 			}
 
-			if (amount < 1) {
+			/*if (amount < 1) {
 				errors.add("Amount should be greater than $0.01.");
 				request.setAttribute("errors", errors);
 				request.setAttribute("selectedcustomer", selectedcustomer);
 				return "depositCheck.jsp";
-			}
+			}*/
 
 			selectedcustomer = customerDAO.readUsers(id);
 			request.setAttribute("selectedcustomer", selectedcustomer);
@@ -191,7 +196,7 @@ public class DepositCheckAction extends Action {
 
 			// and then update in the db
 
-			request.setAttribute("message",
+			request.setAttribute("msg",
 					"Thank You! Your request is processed.");
 			return "success-admin.jsp";
 

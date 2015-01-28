@@ -32,6 +32,7 @@ public class RequestCheckAction extends Action {
 	private long amount;
 
 	private double availableBalance;
+	DecimalFormat displayprice = new DecimalFormat("#,##0.00");
 
 	public RequestCheckAction(Model model) {
 		customerDAO = model.getCustomerDAO();
@@ -45,15 +46,12 @@ public class RequestCheckAction extends Action {
 
 	public String perform(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		
+
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-		System.out.println("i m in request.do");
+		
 		try {
-			// Fetch the items now, so that in case there is no form or there
-			// are errors
-			// We can just dispatch to the JSP to show the item list (and any
-			// errors)
+	
 
 			RequestCheckForm form = formBeanFactory.create(request);
 			/*
@@ -62,69 +60,75 @@ public class RequestCheckAction extends Action {
 			 * df3 = new DecimalFormat("#,##0.000"); Customer customer =
 			 * (Customer) request.getSession(false).getAttribute("user");
 			 */
-			 Customer user = (Customer) session.getAttribute("customer");
-			 if (user==null) {
-					return "login.jsp";
-				}
-			
-			//System.out.println("input" + form.getAmount());
+			Customer user = (Customer) session.getAttribute("customer");
+			if (user == null && !(user instanceof Customer) ) {
+				return "login.jsp";
+			}
+
+			 
 			if (!form.isPresent()) {
-				availableBalance = transactionDAO.getValidBalance(user.getCustomer_id(), user.getCash()/100);
-				request.setAttribute("newavbal", availableBalance);
+				availableBalance = transactionDAO.getValidBalance(
+						user.getCustomer_id(), user.getCash() / 100);
+				request.setAttribute("newavbal",
+						displayprice.format(availableBalance));
 				System.out.println("form not present!");
 				return "RequestCheck.jsp";
 			}
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() > 0) {
+				availableBalance = transactionDAO.getValidBalance(
+						user.getCustomer_id(), user.getCash() / 100);
+				request.setAttribute("newavbal",
+						displayprice.format(availableBalance));
 				return "RequestCheck.jsp";
 			}
 
-			
-			
-			//Customer acnt = new Customer();
-		
-			
+			// Customer acnt = new Customer();
+
 			long bal = user.getCash();
-			System.out.println("cash balance is" + bal);
-			
-			//long amt = form.getAmountAsLong();
-			//System.out.println("amount is : " + amt);
- 
-			
-			try{
-			amount = (long)Double.parseDouble(form.getAmount())*100;
-			}catch(NumberFormatException e){
+			//System.out.println("cash balance is" + bal);
+			//System.out.println("cash as double" + user.igetCashAsDouble());
+
+			// long amt = form.getAmountAsLong();
+			// System.out.println("amount is : " + amt);
+
+			try {
+				double newamt= Double.parseDouble(form.getAmount()) * 100;
+				amount = (long)newamt;
+				//System.out.println("double: "+Double.parseDouble(form.getAmount()));
+				//System.out.println("*100: "+ Double.parseDouble(form.getAmount()) * 100);
+				//System.out.println("final amount: "+amount);
+			} catch (NumberFormatException e) {
 				errors.add("Amount should be numerical.");
 				request.setAttribute("errors", errors);
 			}
-			
-			if (amount<1){
+
+		/*	if (amount < 1) {
 				errors.add("Amount should be greater than $0.01.");
 				request.setAttribute("errors", errors);
-			}
-			
-		//	System.out.println("the difference is :" + (bal - amount));
-		//	System.out.println("I am changing the cash balance");
-			
-		/*	if ((bal - amount) > 0) { // this is to check if withdrawing check
-									// would
-									// cause cash balance to go negative
-				bal = bal - amount;
-				user.setCash(bal);
-				customerDAO.setCash(user.getCustomer_id(), user.getCash());*/
- 
-		 availableBalance = transactionDAO.getValidBalance(user.getCustomer_id(), bal/100);
-			if(availableBalance-Double.parseDouble(form.getAmount())>0){
-				double newavbal= availableBalance-Double.parseDouble(form.getAmount());
+			}else if (amount > 10000000) {
+				errors.add("Please enter an amount that is lesser than $1000000000");
+			}*/
+
+
+			availableBalance = transactionDAO.getValidBalance(
+					user.getCustomer_id(), bal / 100);
+			//System.out.println("cash: " +bal);
+			//System.out.println("cash/100: " +bal/100);
+			//System.out.println( "avail bal: "+ availableBalance);
+			//System.out.println("diff"+ (availableBalance - Double.parseDouble(form.getAmount())));
+			if (availableBalance - Double.parseDouble(form.getAmount()) > 0) {
+				double newavbal = availableBalance
+						- Double.parseDouble(form.getAmount());
+				
 				TransactionBean trans = new TransactionBean();
 				trans.setCustomer_id(user.getCustomer_id());
 				trans.setExecute_date(null);
 				trans.setTransaction_type(2);
 				trans.setAmount(amount);
-				System.out.println("i m in create new transaction");
-				transactionDAO.create(trans);
 				
-				// and then update in the db
+				transactionDAO.create(trans);
+
 				request.setAttribute("newavbal", newavbal);
 				request.setAttribute("message",
 						"Thank You! Your request is processed.");
@@ -132,13 +136,17 @@ public class RequestCheckAction extends Action {
 
 			} else {
 				errors.add("Your account balance is too low to withdraw a check");
+				availableBalance = transactionDAO.getValidBalance(
+						user.getCustomer_id(), user.getCash() / 100);
+				request.setAttribute("newavbal",
+						displayprice.format(availableBalance));
 				return "RequestCheck.jsp";
-				
+
 			}
 		} catch (FormBeanException | RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
 		}
-		
+
 	}
 }

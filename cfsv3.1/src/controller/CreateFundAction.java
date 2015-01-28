@@ -73,7 +73,7 @@ public class CreateFundAction extends Action {
 			fund.setSymbol(form.getSymbol());
 
 			Fund[] funds = fundDAO
-					.match(MatchArg.equals("name", form.getName()));
+					.match(MatchArg.equals("symbol", form.getSymbol()));
 			if (funds.length > 0) {
 				errors.add("fund existed!");
 				return "createFund.jsp";

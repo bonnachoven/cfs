@@ -36,7 +36,7 @@ public class CreateEmployeeAccountForm extends FormBean{
         if (lastname == null || lastname.length() == 0) errors.add("employee lastname is required");
         if (username == null || username.length() == 0) errors.add("employee username is required");
         if (password == null || password.length() == 0) errors.add("Password is required");
-        if (firstname.matches(".*[<>\"].*")||lastname.matches(".*[<>\"].*")||username.matches(".*[<>\"].*")||password.matches(".*[<>\"].*")) errors.add("May not contain angle brackets or quotes");
+        if (firstname.matches(".*[<>\"].*")||lastname.matches(".*[<>\"].*")||username.matches(".*[<>\"].*")||password.matches(".*[<>\"].*")) errors.add("Input may not contain angle brackets or quotes");
 
 		
      if (errors.size() > 0) return errors;

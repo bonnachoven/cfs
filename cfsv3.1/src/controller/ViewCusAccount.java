@@ -58,11 +58,9 @@ public class ViewCusAccount extends Action {
 		List<String> errors = new ArrayList<String>();
 		HttpSession session = request.getSession(false);
 		request.setAttribute("errors", errors);
-		DecimalFormat cash = new DecimalFormat(	"###,##0.00");
 
 		// get customer
 		Customer customer = (Customer) request.getAttribute("viewcustomer");
-		request.setAttribute("cash",cash.format(customer.getCash() / 100.0));
 
 		if (customer == null) {
 			System.out.println("no customer information");
@@ -189,7 +187,7 @@ public class ViewCusAccount extends Action {
 
 			}
 			request.setAttribute("records", records);
-			session.setAttribute("value",cash.format(value));
+			request.setAttribute("value", value);
 //			request.removeAttribute("customer");
 
 		} catch (RollbackException e) {

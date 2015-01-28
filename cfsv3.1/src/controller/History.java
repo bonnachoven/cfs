@@ -51,8 +51,7 @@ public class History extends Action {
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
-        System.out.println("inside trans history");
-    	
+      
         // Look up the user
         Customer user = (Customer) request.getSession(false).getAttribute("customer");
     	 
@@ -68,11 +67,9 @@ public class History extends Action {
         Fund fund=new Fund();
         List<HistoryBean> list = new ArrayList<HistoryBean>();
         HistoryBean[] his;
-        System.out.println(" bean length:"+bean.length);
-    	
         for(int i=0;i<bean.length;i++)
         {
-        	HistoryBean b=new HistoryBean();
+        	 HistoryBean b=new HistoryBean();
         	if(bean[i].getFund_id()==0)
         	{
         		b.setname("");
@@ -86,6 +83,8 @@ public class History extends Action {
                 	b.setshares(bean[i].getShares());
                 	b.setsymbol(fund.getSymbol());
         		}
+        	
+        	
         	b.setamount(bean[i].getAmount());
         	b.setcustomer_id(bean[i].getCustomer_id());
         	b.setexecute_date(bean[i].getExecute_date());
@@ -100,12 +99,10 @@ public class History extends Action {
         his=list.toArray(new HistoryBean[list.size()]);
         request.setAttribute("history", his);
         request.setAttribute("username", user.getUsername());
-
-        request.setAttribute("username", "a");
-		return "history.jsp";
+      return "history.jsp";
         } catch (Exception e) {
         	errors.add(e.getMessage());
-        	return "error.jsp";
+        	return "error-list.jsp";
         }
        
     }

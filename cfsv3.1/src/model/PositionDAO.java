@@ -31,9 +31,10 @@ public class PositionDAO extends GenericDAO<Position> {
 		try{
 
 			Transaction.begin();
-			Position p = read(fund_id,customer_id);
+			Position p = read(customer_id,fund_id);
 
 			if (p == null) {
+				System.out.println("posdao error:");
 				throw new RollbackException("Fund does not exist: id="+fund_id);
 			}
 
@@ -44,7 +45,7 @@ public class PositionDAO extends GenericDAO<Position> {
 			e.printStackTrace();
 			shares=-1;
 		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
+			//if (Transaction.isActive()) Transaction.rollback();
 		}	return shares;
 	}
 	

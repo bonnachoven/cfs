@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,9 +53,12 @@ public class ViewAccount extends Action {
 		List<String> errors = new ArrayList<String>();
 		HttpSession session = request.getSession(false);
 		session.setAttribute("errors", errors);
+		DecimalFormat cash = new DecimalFormat(	"###,##0.00");
+		
 
 		// get customer
 		Customer customer = (Customer) session.getAttribute("customer");
+		request.setAttribute("cash",cash.format(customer.getCash() / 100.0));
 
 		if (customer == null)
 			return "login.jsp";
@@ -146,7 +150,7 @@ public class ViewAccount extends Action {
 
 			}
 			session.setAttribute("records", records);
-			session.setAttribute("value", value);
+			session.setAttribute("value",cash.format(value));
 			System.out.println("total value = " + value);
 
 		} catch (RollbackException e) {

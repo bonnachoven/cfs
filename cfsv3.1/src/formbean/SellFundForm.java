@@ -2,6 +2,7 @@ package formbean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.mybeans.form.FormBean;
 
@@ -23,6 +24,9 @@ public class SellFundForm extends FormBean{
 
 		try {
         	double d = Double.parseDouble(shares);
+        	if (!checkDecimal(shares)) {
+				errors.add("Shares should be in #.### format.");
+			}
         	if (d <= 0 ) {
         		throw new Exception();
         	}
@@ -38,4 +42,9 @@ public class SellFundForm extends FormBean{
         
 		return errors;
 	}	
+	
+	public boolean checkDecimal(String input) {
+		Pattern p = Pattern.compile("[+-]?[0-9]+.{0,1}[0-9]{0,3}");
+		return p.matcher(input).matches();
+	}
 }

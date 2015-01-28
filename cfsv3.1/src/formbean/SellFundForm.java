@@ -25,7 +25,7 @@ public class SellFundForm extends FormBean{
 		if (shares == null || shares.length() == 0) {
 			errors.add("Amount is required");
 		
-		} else if (shares.matches(".*[<>\"].*")) {
+		} else if (shares.matches(".*[<>?*\"].*")) {
 			errors.add("Amount cannot contain angle brackets or quotes");
 		}
 		

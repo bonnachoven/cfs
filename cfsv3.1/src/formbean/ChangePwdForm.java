@@ -46,7 +46,7 @@ public class ChangePwdForm extends FormBean {
 		if (errors.size() > 0) {
 			return errors;
 		}
-	      if (confirmPassword.matches(".*[<>\"].*")||currentPassword.matches(".*[<>\"].*")||newPassword.matches(".*[<>\"].*")) errors.add("Input may not contain angle brackets or quotes");
+	      if (confirmPassword.matches(".*[<>?*\"].*")||currentPassword.matches(".*[<>?*\"].*")||newPassword.matches(".*[<>?*\"].*") errors.add("Input may not contain angle brackets or quotes");
 
 		if (!action.equals("change"))
 			errors.add("Invalid button");

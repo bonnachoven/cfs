@@ -66,7 +66,7 @@ public class BuyFundAction extends Action {
 					customer.getCustomer_id(),
 					(customer.igetCashAsDouble()/100.0));
 
-			String vaildBalanceString = amount.format(vaildBalance);
+			String validBalanceString = amount.format(validBalance);
 			request.setAttribute("balance", validBalanceString);
 			
 			
@@ -103,9 +103,9 @@ public class BuyFundAction extends Action {
 			request.setAttribute("form", form);
 			if (form.isPresent()) {
 				
-				Double amount = form.getAmountAsDouble();
-				System.out.println("Amount in the form is " + amount);
-				if (amount > validBalance) {
+				Double k = form.getAmountAsDouble();
+				System.out.println("Amount in the form is " + k);
+				if (k > validBalance) {
 					errors.add("You don't have enough balance to buy the fund");
 				}
 				
@@ -121,14 +121,14 @@ public class BuyFundAction extends Action {
 				transaction.setShares(0);
 				transaction.setTransaction_type(4);
 				
-				Double amount = form.getAmountAsDouble();
-				System.out.println("Amount in the form is " + amount);
-				if (amount > validBalance) {
+				Double amount1 = form.getAmountAsDouble();
+				System.out.println("Amount in the form is " + amount1);
+				if (amount1 > validBalance) {
 					errors.add("You don't have enough balance to buy the fund");
 				}
 				else {
-					validBalance -= amount;
-					transaction.setAmount(amount);
+					validBalance -= amount1;
+					transaction.setAmount(amount1);
 					transactionDAO.create(transaction);
 					request.setAttribute("balance", validBalance);
 					request.removeAttribute("form");

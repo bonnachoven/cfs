@@ -21,6 +21,16 @@ public class SellFundForm extends FormBean{
 	
 	public List<String> getValidationErrors () {
 		List<String> errors = new ArrayList<String>();
+		
+		if (shares == null || shares.length() == 0) {
+			errors.add("Amount is required");
+		
+		} else if (shares.matches(".*[<>\"].*")) {
+			errors.add("Amount cannot contain angle brackets or quotes");
+		}
+		
+		if (errors.size() > 0)
+			return errors;
 
 		try {
         	double d = Double.parseDouble(shares);

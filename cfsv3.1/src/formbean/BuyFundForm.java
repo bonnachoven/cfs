@@ -45,7 +45,7 @@ public class BuyFundForm extends FormBean {
 		if (fund_id == null || fund_id.length() == 0) {
 			errors.add("Please choose a fund");
 		}
-		if (buyAmount != null && buyAmount.matches(".*[<>\"].*"))
+		if (buyAmount != null && buyAmount.matches(".*[<>?*\"].*"))
 			errors.add("Buy amount format error!");
 		if (!checkDecimal(buyAmount)) {
 			errors.add("Only numbers with a maximum of 2 decimals places are allowed for amount.");

@@ -6,7 +6,7 @@
 
 
 <ul class="breadcrumb">
-	<li class="active"><a href="customermanage.do">Payment</a> <span class="divider"></span></li>
+	<li class="active"><a href="requestCheck.do">Payment</a> <span class="divider"></span></li>
 	<li><a href="requestCheck.do">Request Check</a> <span class="divider">/</span></li>
 </ul>
 

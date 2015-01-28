@@ -6,7 +6,7 @@
 
 
 <ul class="breadcrumb">
-	<li class="active"><a href="employeemanage.do">Payment</a> <span class="divider"></span></li>
+	<li class="active"><a href="customerSearch.do">Payment</a> <span class="divider"></span></li>
 	<li><a href="customerSearch.do">Select Customer</a> <span class="divider">/</span></li>
 	<li><a href="depositCheck.do">Deposit Check</a> <span class="divider">/</span></li>
 </ul>

@@ -15,7 +15,6 @@
       <tr>
         <th>Fund Name</th>
         <th>Fund ID</th>
-        <th>Current Price</th>
         <th></th>
       </tr>
     </thead>
@@ -25,7 +24,6 @@
       <tr>
         <td>${f.name }</td>
         <td>${f.symbol }</td>
-        <td>${f.latestPrice}</td>
         <td align="center"><input type="radio" name="fund_id" value="${f.fund_id }"></td>
       </tr>
 	</c:forEach>

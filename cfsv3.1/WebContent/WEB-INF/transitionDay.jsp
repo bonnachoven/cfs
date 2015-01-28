@@ -28,6 +28,13 @@
 </div> 
  
  <div style="width:400px;">
+ <c:choose>
+	<c:when test="${empty additional}">
+	</c:when>
+	<c:otherwise>
+		<h3 style="color: red">${additional}</h3>
+	</c:otherwise>
+</c:choose>
 <c:forEach var="error" items="${errors}">
 	<h3 style="color: red">${error}</h3>
 </c:forEach> 
@@ -60,7 +67,7 @@
       	<td name="fund_id">${funds.fund_id}</td>
       	<td>${funds.name}</td>
         <td>${funds.symbol}</td>
-        <td><input type="text" required="required" placeholder="eg. 12.00$" name="price${count}"></td>
+        <td><input type="text" required="required" placeholder="eg. 12.00$" name="price"></td>
       </tr>
      	<c:set var="count" value="${count + 1}" scope="page"/>
     </c:forEach>

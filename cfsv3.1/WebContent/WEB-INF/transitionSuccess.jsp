@@ -27,13 +27,6 @@
  
  
 	All pending transactions were executed
-<c:choose>
-	<c:when test="${empty additional}">
-	</c:when>
-	<c:otherwise>
-		${additional} funds were created during the process of transition day
-	</c:otherwise>
-</c:choose>
 
  </div>
 

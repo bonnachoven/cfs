@@ -64,8 +64,7 @@ public class TransitionDay extends Action {
        // errors.add("enter the date in yyyy-mm-dd");
         request.setAttribute("errors",errors);
         String button=request.getParameter("action");
-        
-        try {
+         try {
         	TransitionDayForm form = new TransitionDayForm();
         	
         	//check if the admin is logged in to the system ....else prevent from accessing the transition day
@@ -123,9 +122,8 @@ public class TransitionDay extends Action {
 		    		 return "transitionDay.jsp";
 		    		 
 		    	 }
-		    	 System.out.println("here:"+i);
+		    	 
 		     }
-		      System.out.println("hi;");
 		     
 		      TransactionBean bean[]=transDAO.getAllPendingTrans();
 		      int count;

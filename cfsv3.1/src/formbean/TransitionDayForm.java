@@ -28,8 +28,12 @@ public class TransitionDayForm extends FormBean{
 	public List<String> getValidationErrors (String lastdate) {
 		List<String> errors = new ArrayList<String>();
 
-		 if (date == null || date.length() == 0) 
+		 if (date == null || date.length() == 0)
+		 {
+			 
 			 errors.add("Please enter the transition day!");
+			 
+		 }
 		 else
 		 {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -59,12 +63,17 @@ public class TransitionDayForm extends FormBean{
 	        
 		
 		try {
-        	if (price <= 0 || price > Integer.MAX_VALUE) {
+        	if (price <= 0) {
         		System.out.println("long error"+price);
-        		throw new Exception();
+        		
+        		errors.add("enter a positive value");
+        	}
+        	else if(price>1000000000)
+        	{
+        		errors.add("Entered value overflows");
         	}
         } catch (Exception e) {
-        	 errors.add("Please type in postitive numbers.");
+        	 errors.add("Please enter valid integer");
         }
 		if (errors.size() > 0) 	return errors;
 		/* if (!action.equals("Transit Day")) errors.add("Please press Transition Day button to finish action");

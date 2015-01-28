@@ -51,7 +51,8 @@ public class History extends Action {
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
-        
+        System.out.println("inside trans history");
+    	
         // Look up the user
         Customer user = (Customer) request.getSession(false).getAttribute("customer");
     	 
@@ -67,6 +68,8 @@ public class History extends Action {
         Fund fund=new Fund();
         List<HistoryBean> list = new ArrayList<HistoryBean>();
         HistoryBean[] his;
+        System.out.println(" bean length:"+bean.length);
+    	
         for(int i=0;i<bean.length;i++)
         {
         	HistoryBean b=new HistoryBean();
@@ -86,11 +89,13 @@ public class History extends Action {
         	b.setamount(bean[i].getAmount());
         	b.setcustomer_id(bean[i].getCustomer_id());
         	b.setexecute_date(bean[i].getExecute_date());
+
+        	System.out.println("null pending transactions"+b.getExecute_date());
         	b.settransaction_id(bean[i].getTransaction_id());
         	b.settransaction_type(bean[i].getTransaction_type());
         	list.add(b);
         }
-        System.out.println("length:"+bean.length);
+       // System.out.println("length:"+bean.length);
         
         his=list.toArray(new HistoryBean[list.size()]);
         request.setAttribute("history", his);

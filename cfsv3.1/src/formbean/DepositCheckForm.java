@@ -23,7 +23,7 @@ public class DepositCheckForm extends FormBean {
 
 		if (amount == null || amount.length() == 0) {
 			errors.add("Amount is required");
-		} else if (amount.matches(".*[<>\"].*")) {
+		} else if (amount.matches(".*[<>?*\"].*")) {
 			errors.add("Amount cannot contain angle brackets or quotes");
 		}
 

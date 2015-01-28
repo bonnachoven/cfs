@@ -64,7 +64,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Cash Balance</h3>
 					</div>
-					<h3 class="panel-body">${customer.cash}</h3>
+					<h3 class="panel-body">${cash}</h3>
 
 					<div class="panel-heading">
 						<h3 class="panel-title">Shares of Funds</h3>

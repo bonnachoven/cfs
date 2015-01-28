@@ -13,7 +13,7 @@
 <form class="bs-example bs-example-form" role="form" method="post" action="requestCheck.do"> 
            
       <div class="input-group">
-      Available Balance:$ ${newavbal}
+      Available Balance:$  ${newavbal}
       </div>
    	  Enter Amount:
       <div class="input-group">

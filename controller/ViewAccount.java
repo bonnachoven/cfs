@@ -111,11 +111,11 @@ public class ViewAccount extends Action {
 						.getFundPrice(fund_id);
 				for (Fund_Price_History fph : fphList) {
 					if (latestDate == null) {
-						latestDate = fph.igetPrice_date_formatted();
+						latestDate = fph.getPrice_date_formatted();
 						latestprice = fph.getPrice();
 					} else {
 						if (fph.igetPrice_date_formatted().after(latestDate)) {
-							latestDate = fph.igetPrice_date_formatted();
+							latestDate = fph.getPrice_date_formatted();
 							latestprice = fph.getPrice();
 						}
 					}

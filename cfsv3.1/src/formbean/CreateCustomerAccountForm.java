@@ -53,7 +53,7 @@ public class CreateCustomerAccountForm extends FormBean{
         if (lastname == null ||lastname.length() == 0) errors.add("customer lastname is required");
         if (username == null || username.length() == 0) errors.add("customer username is required");
         if (password == null || password.length() == 0) errors.add("Password is required");
-        if (firstname.matches(".*[<>\"].*")||lastname.matches(".*[<>\"].*")||username.matches(".*[<>\"].*")||password.matches(".*[<>\"].*")) errors.add("May not contain angle brackets or quotes");
+        if (firstname.matches(".*[<>\"].*")||lastname.matches(".*[<>\"].*")||username.matches(".*[<>\"].*")||password.matches(".*[<>\"].*")) errors.add("Input may not contain angle brackets or quotes");
 
      
 	

@@ -50,6 +50,7 @@ public class BuyFundAction extends Action {
 
 		DecimalFormat latestPrice = new DecimalFormat("#,##0.00");
 		DecimalFormat shares = new DecimalFormat("#,##0.000");
+		DecimalFormat amount = new DecimalFormat("#,##0.00");
 
 		try {
 			if (request.getSession().getAttribute("customer") == null) {
@@ -59,8 +60,16 @@ public class BuyFundAction extends Action {
 
 			Customer customer = customerDAO.getCustomers(((Customer) request
 					.getSession().getAttribute("customer")).getUsername());
-			
 
+			
+			Double validBalance = transactionDAO.getValidBalance(
+					customer.getCustomer_id(),
+					(customer.igetCashAsDouble()/100.0));
+
+			String validBalanceString = amount.format(validBalance);
+			request.setAttribute("balance", validBalanceString);
+			
+			
 			// get fund name;
 			Fund[] fundList = fundDAO.getFunds();
 
@@ -68,7 +77,7 @@ public class BuyFundAction extends Action {
 			List<FundItem> fundTable = new ArrayList<FundItem>();
 			// add fund table rows
 			if ((fundList != null) && (fundList.length > 0)) {
-				System.out.println("now start to buy fund");
+
 				for (int i = 0; i < fundList.length; i++) {
 					FundItem row = new FundItem();
 					row.setName(fundList[i].getName());
@@ -90,20 +99,42 @@ public class BuyFundAction extends Action {
 			session.setAttribute("fundTable", fundTable);
 
 			BuyFundForm form = formBeanFactory.create(request);
-			session.setAttribute("form", form);
+
+			request.setAttribute("form", form);
 			if (form.isPresent()) {
+				
+				Double k = form.getAmountAsDouble();
+				System.out.println("Amount in the form is " + k);
+				if (k > validBalance) {
+					errors.add("You don't have enough balance to buy the fund");
+				}
+				
+				errors.addAll(form.getValidationErrors());
+		        if (errors.size() != 0) {
+		            return "buyFund.jsp";
+		        }
+		        
 				TransactionBean transaction = new TransactionBean();
 				transaction.setCustomer_id(customer.getCustomer_id());
 				transaction.setFund_id(form.getFund_id());
-				System.out.println(form.getFund_id());
 				transaction.setExecute_date(null);
 				transaction.setShares(0);
 				transaction.setTransaction_type(4);
-				Double amount = form.getAmountAsDouble() * 100.0;
-				transaction.setAmount(amount.longValue());
-				transactionDAO.create(transaction);
+				
+				Double amount1 = form.getAmountAsDouble();
+				System.out.println("Amount in the form is " + amount1);
+				if (amount1 > validBalance) {
+					errors.add("You don't have enough balance to buy the fund");
+				}
+				else {
+					validBalance -= amount1;
+					transaction.setAmount(amount1);
+					transactionDAO.create(transaction);
+					request.setAttribute("balance", validBalance);
+					request.removeAttribute("form");
+				}
 			}
-			
+
 			return "buyFund.jsp";
 
 		} catch (RollbackException e) {

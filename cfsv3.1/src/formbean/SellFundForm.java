@@ -23,7 +23,7 @@ public class SellFundForm extends FormBean{
 
 		try {
         	double d = Double.parseDouble(shares);
-        	if (d <= 0 || d > Integer.MAX_VALUE) {
+        	if (d <= 0 ) {
         		throw new Exception();
         	}
         	if (d > 1000000000) {

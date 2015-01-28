@@ -45,8 +45,8 @@ public class RequestCheckForm extends FormBean {
 			if (!checkDecimal(amount)) {
 				errors.add("Amount should be in x.xx format(tracked to two decimal places).");
 			}
-			else if (amt < 1) {
-				errors.add("Please enter an amount that is greater than $1");
+			else if (amt < 0.01) {
+				errors.add("Please enter an amount that is greater than $0.01");
 			} else if (amt > 1000000000) {
 				errors.add("Please enter an amount that is lesser than $1000000000");
 			}

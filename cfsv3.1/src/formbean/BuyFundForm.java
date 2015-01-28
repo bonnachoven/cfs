@@ -56,8 +56,8 @@ public class BuyFundForm extends FormBean {
 			double amt = Double.parseDouble(buyAmount);
 			amt = Math.round(amt * 100);
 			amt = amt / 100;
-			if (amt < 10) {
-				errors.add("Please enter an amount that is greater than $10");
+			if (amt < 0.01) {
+				errors.add("Please enter an amount that is greater than $0.01");
 			} else if (amt > 1000000000) {
 				errors.add("Please enter an amount that is lesser than $1000000000");
 			}

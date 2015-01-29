@@ -23,7 +23,7 @@ public class CustomerDAO extends GenericDAO<Customer> {
 	//for deposit/withdraw cash on customer account
     public void updateCash(int customer_id,long amount,boolean deposit) throws RollbackException{
     
-        Transaction.begin();
+        
         Customer customer=read(customer_id);
         if (customer == null) {
             throw new RollbackException("Customer " + customer_id
@@ -37,7 +37,6 @@ public class CustomerDAO extends GenericDAO<Customer> {
         customer.setCash(cash);
         System.out.println("latest:cash"+cash);
         update(customer);
-        Transaction.commit();
         
         
     }

@@ -61,4 +61,13 @@ public class RequestCheckForm extends FormBean {
 		return p.matcher(input).matches();
 	}
 
+	public double getAmountAsDouble() {
+		try {
+			return Double.parseDouble(amount);
+		} catch (NumberFormatException e) {
+			// call getValidationErrors() to detect this
+			return -1;
+		}
+	}
+
 }
